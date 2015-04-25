@@ -65,7 +65,7 @@ class Task:
         self.description = description
         self.command = command
         self.GUID = uuid.uuid4()
-        
+
     def execute(self):
 	'''
             Executes the command
@@ -73,8 +73,12 @@ class Task:
             **WARNING SECURITY HAZARD**
             This code executes shell commands for unsanitized input
 	'''
-        call(self.command, shell=True)
-    
+        try:
+            call(self.command, shell=True)
+        except:
+            traceback.print_exc(file=sys.stdout)
+     
+ 
 if __name__ == '__main__':
     simple_tasks = TaskQueue()
     simple_tasks.push(Task(description='My first task', 
