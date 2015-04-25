@@ -28,7 +28,7 @@ later execution. A TaskQueue has the following members:
 
 
 ##Example
-````
+````Python
 >>> from taskQueue import Task
 >>> from taskQueue import TaskQueue
 >>> t1 = Task(description="Hello World", command="echo Hello World")
