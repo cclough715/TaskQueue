@@ -1,38 +1,65 @@
+import sys
 import uuid
+from subprocess import call
 
 class TaskQueue:
     def __init__(self):
+        '''
+            Creates an empty TaskQueue
+        '''
         self._tasks = []
         
     def push(self, task):
+        '''
+            Pushes a Task into the queue
+        '''
         self._tasks.append(task)
-    
-    def pop():
-        return
-        #TODO: implement
-    def peek_all():
-        return
-        #TODO: implement
-    def peek_next():
-        return
-        #TODO: implement
-    def count():
-        return len(self._tasks)
         
+    def pop(self):
+        '''
+            Removes and returns the first Task in the queue
+        '''
+        return self._tasks.pop()
+        
+    def peek_all(self):
+        '''
+            Returns a list of al of the Tasks in the queue
+        '''
+        return self._tasks
+        
+    def peek_next(self):
+        '''
+            Returns the next Task in the queue
+        '''
+        if (self.count() > 0):
+            return self._tasks[0]
+        else:
+            return None
+    
+    def count(self):
+        '''
+            Returns the number of tasks currently in the queue
+        '''
+        return len(self._tasks)
+      
+      
 class Task:
     def __init__(self, description, command):
         self.description = description
         self.command = command
         self.GUID = uuid.uuid4()
         
-    def execute():
-        return
-        #TODO: implement
+    def execute(self):
+        call([self.command])
     
 if __name__ == '__main__':
-    tq = TaskQueue()
-    t = Task(description='My first task', 
-        command='ping -c 3 google-public-dns-a.google.com')
-    tq.push(t)
-    print string.format("Length = {}", tq.count())
-    print t.GUID
+    simple_tasks = TaskQueue()
+    simple_tasks.push(Task(description='My first task', 
+                      command='ping -c 3 google-public-dns-a.google.com'))
+    simple_tasks.push(Task(description='My second task', 
+                      command='ping -c 3 google-public-dns-a.google.com'))
+    
+    while simple_tasks.peek_next():
+        t = simple_tasks.pop()
+        sys.stdout.write('Running task %s\n' % t.GUID)
+        t.execute()
