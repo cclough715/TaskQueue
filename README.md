@@ -7,10 +7,10 @@ Task
 ------------
 A Task object represents an OS command which has the following members:
 
-- GUID	\t\t	A unique identifier
-- description\t	A description of the Task
-- command\t\t	An executable command line task eg. echo
-- execute()\t	A method to run the stored command
+- GUID		A unique identifier
+- description 	A description of the Task
+- command	An executable command line task eg. echo
+- execute()	A method to run the stored command
 
 **CAUTION: execute() will run unsanitized input**
 
@@ -19,12 +19,12 @@ TaskQueue
 A FIFO list of Task objects. This will allow us to store commands for
 later execution. A TaskQueue has the following members:
 
-- push(Task)\t	Pushes a Task to the end of the queue
-- pop()	\t\t	Removes and returns the next Task
-- peek_all()\t	Looks at all of the Tasks in the queue
-- peek_next()\t	Looks at the next Task in the queue
-- count()\t\t	Returns the number of Tasks left in the queue
-- is_empty()\t	Tells us if there is any more Tasks left in the queue
+- push(Task)	Pushes a Task to the end of the queue
+- pop()		Removes and returns the next Task
+- peek_all()	Looks at all of the Tasks in the queue
+- peek_next()	Looks at the next Task in the queue
+- count()	Returns the number of Tasks left in the queue
+- is_empty()	Tells us if there is any more Tasks left in the queue
 
 
 ##Example
