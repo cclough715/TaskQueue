@@ -1,3 +1,8 @@
+'''
+Author: Chad Clough
+Created: 4/24/2015
+'''
+
 import sys
 import uuid
 from subprocess import call
@@ -29,9 +34,10 @@ class TaskQueue:
         
     def peek_next(self):
         '''
-            Returns the next Task in the queue
+            Returns the next Task in the queue; None if the
+            queue is empty
         '''
-        if (self.count() > 0):
+        if (not self.is_empty()):
             return self._tasks[0]
         else:
             return None
@@ -41,16 +47,33 @@ class TaskQueue:
             Returns the number of tasks currently in the queue
         '''
         return len(self._tasks)
+
+    def is_empty(self):
+        '''
+            Returns True if there are no Tasks currently in the 
+            queue; False otherwise
+        '''
+        return len(self._tasks) == 0
       
       
 class Task:
     def __init__(self, description, command):
+        '''
+            Creates a Task with the given description and command
+            and generates a GUID for the Task
+        '''
         self.description = description
         self.command = command
         self.GUID = uuid.uuid4()
         
     def execute(self):
-        call([self.command])
+	'''
+            Executes the command
+
+            **WARNING SECURITY HAZARD**
+            This code executes shell commands for unsanitized input
+	'''
+        call(self.command, shell=True)
     
 if __name__ == '__main__':
     simple_tasks = TaskQueue()
